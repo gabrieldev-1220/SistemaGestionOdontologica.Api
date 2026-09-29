@@ -8,7 +8,7 @@
         public DateTime Fecha { get; set; }
         public string? Detalles { get; set; }
 
-        // RELACIONES
-        public Usuario Usuario { get; set; } = null;
+        // RELACIONES.
+        public Usuario Usuario { get; set; } = null!;
     }
 }

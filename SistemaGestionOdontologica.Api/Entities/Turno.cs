@@ -13,9 +13,9 @@ namespace SistemaGestionOdontologica.Api.Entities
         public string? Observaciones { get; set; }
         public DateTime FechaCreacion { get; set; }
 
-        //RELACIONES
-        public Paciente Paciente { get; set; } = null;
-        public Odontologo Odontologo { get; set; } = null;
+        //RELACIONES.
+        public Paciente Paciente { get; set; } = null!;
+        public Odontologo Odontologo { get; set; } = null!;
 
         public ICollection<RecordatorioTurno> Recordatorios { get; set; }
             = new List<RecordatorioTurno>();

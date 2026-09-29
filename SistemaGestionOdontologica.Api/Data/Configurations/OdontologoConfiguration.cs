@@ -10,12 +10,14 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
         {
             builder.ToTable("odontologos");
 
+            // CLAVE PRIMARIA
             builder.HasKey(o => o.IdOdontologo);
 
             builder.Property(o => o.IdOdontologo)
                 .HasColumnName("id_odontologo")
                 .ValueGeneratedOnAdd();
 
+            // DATOS DEL ODONTÓLOGO
             builder.Property(o => o.Nombre)
                 .HasColumnName("nombre")
                 .HasMaxLength(50)
@@ -31,6 +33,7 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
                 .HasMaxLength(30)
                 .IsRequired();
 
+            // MATRÍCULA ÚNICA
             builder.HasIndex(o => o.Matricula)
                 .IsUnique();
 
@@ -53,16 +56,19 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
                 .HasColumnName("activo")
                 .HasDefaultValue(true);
 
+            // RELACIÓN CON TURNOS
             builder.HasMany(o => o.Turnos)
                 .WithOne(t => t.Odontologo)
                 .HasForeignKey(t => t.IdOdontologo)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Restrict);
 
+            // RELACIÓN CON HISTORIAL CLÍNICO
             builder.HasMany(o => o.HistorialesClinicos)
                 .WithOne(h => h.Odontologo)
                 .HasForeignKey(h => h.IdOdontologo)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // RELACIÓN CON USUARIOS
             builder.HasMany(o => o.Usuarios)
                 .WithOne(u => u.Odontologo)
                 .HasForeignKey(u => u.IdOdontologo)

@@ -12,7 +12,7 @@ namespace SistemaGestionOdontologica.Api.Entities
         public DateTime? FechaEnvio { get; set; }
         public string? Error { get; set; }
 
-        // RELACIONES
-        public Turno Turno { get; set; } = null;
+        // RELACIÓN.
+        public Turno Turno { get; set; } = null!;
     }
 }

@@ -10,16 +10,19 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
         {
             builder.ToTable("archivos_clinicos");
 
+            // CLAVE PRIMARIA
             builder.HasKey(a => a.IdArchivo);
 
             builder.Property(a => a.IdArchivo)
                 .HasColumnName("id_archivo")
                 .ValueGeneratedOnAdd();
 
+            // HISTORIAL
             builder.Property(a => a.IdHistorial)
                 .HasColumnName("id_historial")
                 .IsRequired();
 
+            // DATOS ARCHIVO
             builder.Property(a => a.NombreOriginal)
                 .HasColumnName("nombre_original")
                 .HasMaxLength(255)
@@ -49,6 +52,13 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
                 .HasColumnType("datetime2")
                 .HasDefaultValueSql("SYSDATETIME()");
 
+            // RELACIÓN CON HISTORIAL
+            builder.HasOne(a => a.Historial)
+                .WithMany(h => h.Archivos)
+                .HasForeignKey(a => a.IdHistorial)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            // ÍNDICE
             builder.HasIndex(a => a.IdHistorial);
         }
     }

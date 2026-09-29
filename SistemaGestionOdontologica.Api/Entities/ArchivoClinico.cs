@@ -13,7 +13,7 @@ namespace SistemaGestionOdontologica.Api.Entities
         public long TamanoBytes { get; set; }
         public DateTime FechaSubida { get; set; }
 
-        // RELACIONES
-        public HistorialClinico Historial { get; set; } = null;
+        // RELACIONES.
+        public HistorialClinico Historial { get; set; } = null!;
     }
 }

@@ -9,7 +9,7 @@
         public bool Activo { get; set; }
         public DateTime FechaCreacion { get; set; }
 
-        // RELACIONES
+        // RELACIONES.
         public ICollection<HistorialTratamiento> HistorialTratamientos { get; set; }
             = new List<HistorialTratamiento>();
     }

@@ -11,7 +11,7 @@
         public string Especialidad {  get; set; } = string.Empty;
         public bool Activo { get; set; }
 
-        // RELACIONES
+        // RELACIONES.
         public ICollection<Turno> Turnos { get; set; }
             = new List<Turno>();
 

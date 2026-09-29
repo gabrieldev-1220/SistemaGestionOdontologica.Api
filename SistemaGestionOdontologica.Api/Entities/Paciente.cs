@@ -26,7 +26,7 @@ namespace SistemaGestionOdontologica.Api.Entities
         public DateTime FechaRegistro { get; set; }
         public bool Activo { get; set; }
 
-        // RELACIONES.
+        // RELACIONES
         public ICollection<Turno> Turnos { get; set; } = new List<Turno>();
         public ICollection<HistorialClinico> HistorialesClinicos { get; set; }
             = new List<HistorialClinico>();

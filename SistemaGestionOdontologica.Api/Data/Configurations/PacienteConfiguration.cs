@@ -10,6 +10,7 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
         {
             builder.ToTable("pacientes");
 
+            // DATOS DEL PACIENTE
             builder.HasKey(p => p.IdPaciente);
 
             builder.Property(p => p.IdPaciente)
@@ -28,10 +29,11 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
 
             builder.Property(p => p.Dni)
                 .HasColumnName("dni")
-                .HasColumnType("date")
+                .HasMaxLength(15)
                 .IsRequired();
 
-            builder.HasIndex(p => p.FechaNacimiento)
+            // DNI ÚNICO
+            builder.HasIndex(p => p.Dni)
                 .IsUnique();
 
             builder.Property(p => p.FechaNacimiento)
@@ -62,16 +64,19 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
                 .HasColumnName("activo")
                 .HasDefaultValue(true);
 
+            // RELACIÓN CON TURNOS.
             builder.HasMany(p => p.Turnos)
                 .WithOne(t => t.Paciente)
                 .HasForeignKey(t => t.IdPaciente)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // RELACIÓN CON HISTORIAL CLÍNICO
             builder.HasMany(p => p.HistorialesClinicos)
                 .WithOne(h => h.Paciente)
                 .HasForeignKey(h => h.IdPaciente)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // RELACIÓN CON PAGOS
             builder.HasMany(p => p.Pagos)
                 .WithOne(p => p.Paciente)
                 .HasForeignKey(p => p.IdPaciente)

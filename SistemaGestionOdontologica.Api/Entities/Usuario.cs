@@ -13,9 +13,10 @@ namespace SistemaGestionOdontologica.Api.Entities
         public DateTime FechaCreacion { get; set; }
         public DateTime? UltimoAcceso { get; set; }
 
-        // RELACIONES
+        // RELACION OPCIONAL
         public Odontologo? Odontologo { get; set; }
 
+        // RELACIÓN.
         public ICollection<Bitacora> Bitacoras { get; set; }
             = new List<Bitacora>();
     }

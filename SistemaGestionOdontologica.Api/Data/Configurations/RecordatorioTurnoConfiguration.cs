@@ -9,23 +9,34 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<RecordatorioTurno> builder)
         {
-            builder.ToTable("recordatorios_turno");
+            builder.ToTable(
+                "recordatorios_turno",
+                TableBuilder =>
+                {
+                    TableBuilder.HasCheckConstraint(
+                        "CK_recordatorios_turno",
+                        "[tipo] IN ('email','whatsapp', 'sms')");
+                });
 
+            // CLAVE PRIMARIA
             builder.HasKey(r => r.IdRecordatorio);
 
             builder.Property(r => r.IdRecordatorio)
                 .HasColumnName("id_recordatorio")
                 .ValueGeneratedOnAdd();
 
+            // TURNO
             builder.Property(r => r.IdTurno)
                 .HasColumnName("id_turno")
                 .IsRequired();
 
+            // FECHA PROGRAMADA
             builder.Property(r => r.FechaProgramada)
                 .HasColumnName("fecha_programada")
                 .HasColumnType("datetime2")
                 .IsRequired();
 
+            // TIPO
             builder.Property(r => r.Tipo)
                 .HasColumnName("tipo")
                 .HasConversion(
@@ -34,26 +45,27 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
                 .HasMaxLength(20)
                 .IsRequired();
 
+            // ESTADO DE ENVÍO
             builder.Property(r => r.Enviado)
                 .HasColumnName("enviado")
                 .HasDefaultValue(false);
 
+            // FECHA DE ENVÍO
             builder.Property(r => r.FechaEnvio)
                 .HasColumnName("fecha_envio")
                 .HasColumnType("datetime2");
 
+            // ERROR
             builder.Property(r => r.Error)
                 .HasColumnName("error");
 
-            builder.ToTable(
-                "recordatorios_turno",
-                TableBuilder =>
-                {
-                    TableBuilder.HasCheckConstraint(
-                        "CK_recordatorios_turno",
-                        "[tipo] IN ('email','Whatsapp', 'sma')");
-                });
+            // RELACIÓN CON TURNO
+            builder.HasOne(r => r.Turno)
+                .WithMany(t => t.Recordatorios)
+                .HasForeignKey(r => r.IdTurno)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            // ÍNDICE PARA EL PROCESAMIENTO DE RECORDATORIOS
             builder.HasIndex(r => new
             {
                 r.Enviado,

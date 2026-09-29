@@ -11,7 +11,7 @@ namespace SistemaGestionOdontologica.Api.Entities
         public MetodoPago MetodoPago { get; set; }
         public string? Observaciones { get; set; }
 
-        // RELACIONES
-        public Paciente Paciente { get; set; } = null;
+        // RELACIONES.
+        public Paciente Paciente { get; set; } = null!;
     }
 }

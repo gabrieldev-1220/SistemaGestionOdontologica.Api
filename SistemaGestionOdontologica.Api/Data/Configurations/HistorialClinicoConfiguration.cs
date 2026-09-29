@@ -10,12 +10,14 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
         {
             builder.ToTable("historial_clinico");
 
+            // CLAVE PRIMARIA
             builder.HasKey(h => h.IdHistorial);
 
             builder.Property(h => h.IdHistorial)
                 .HasColumnName("id_historial")
                 .ValueGeneratedOnAdd();
 
+            // CLAVES FORÁNEAS
             builder.Property(h => h.IdPaciente)
                 .HasColumnName("id_paciente")
                 .IsRequired();
@@ -24,11 +26,13 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
                 .HasColumnName("id_odontologo")
                 .IsRequired();
 
+            // FECHA
             builder.Property(h => h.Fecha)
                 .HasColumnName("fecha")
                 .HasColumnType("datetiem2")
                 .IsRequired();
 
+            // INFORMACIÓN CLÍNICA
             builder.Property(h => h.MotivoConsulta)
                 .HasColumnName("motivo_consulta")
                 .IsRequired();
@@ -41,11 +45,25 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
                 .HasColumnName("observaciones")
                 .IsRequired();
 
+            // RELACIÓN CON PACIENTE
+            builder.HasOne(h => h.Paciente)
+                .WithMany(p => p.HistorialesClinicos)
+                .HasForeignKey(h => h.IdPaciente)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // RELACIÓN CON ODONTÓLOGO
+            builder.HasOne(h => h.Odontologo)
+                .WithMany(o => o.HistorialesClinicos)
+                .HasForeignKey(h => h.IdOdontologo)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // RELACIÓN CON TRATAMIENTOS
             builder.HasMany(h => h.HistorialTratamientos)
                 .WithOne(ht => ht.Historial)
                 .HasForeignKey(ht => ht.IdHistorial)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // RELACIÓN CON ARCHIVOS
             builder.HasMany(h => h.Archivos)
                 .WithOne(a => a.Historial)
                 .HasForeignKey(a => a.IdHistorial)

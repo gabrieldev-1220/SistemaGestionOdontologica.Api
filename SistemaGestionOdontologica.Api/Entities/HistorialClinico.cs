@@ -11,9 +11,9 @@
         public string Observaciones {  get; set; } = string.Empty;
 
         // RELACIONES
-        public Paciente Paciente { get; set; }
+        public Paciente Paciente { get; set; } = null!;
 
-        public Odontologo Odontologo { get; set; }
+        public Odontologo Odontologo { get; set; } = null!;
 
         public ICollection<HistorialTratamiento> HistorialTratamientos { get; set; }
             = new List<HistorialTratamiento>();

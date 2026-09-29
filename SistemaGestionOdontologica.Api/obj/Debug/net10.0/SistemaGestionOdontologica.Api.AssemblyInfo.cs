@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SistemaGestionOdontologica.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4d6f13996870c1b9c8e6aa636064e524315e9e06")]
 [assembly: System.Reflection.AssemblyProductAttribute("SistemaGestionOdontologica.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SistemaGestionOdontologica.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

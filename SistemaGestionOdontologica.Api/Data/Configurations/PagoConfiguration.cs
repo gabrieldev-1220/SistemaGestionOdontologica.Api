@@ -9,28 +9,44 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Pago> builder)
         {
-            builder.ToTable("pagos");
+            builder.ToTable(
+                "pagos",
+                TableBuilder =>
+                {
+                    TableBuilder.HasCheckConstraint(
+                        "CK_pagos_monto",
+                        "[monto] > 0");
 
+                    TableBuilder.HasCheckConstraint(
+                        "CK_pagos_metodo",
+                        "[metodo_pago] IN ('efectivo', 'tarjeta', 'transferencia')");
+                });
+
+            // CLAVE PRIMARIA
             builder.HasKey(p => p.IdPago);
 
             builder.Property(p => p.IdPago)
                 .HasColumnName("id_pago")
                 .ValueGeneratedOnAdd();
 
+            // PACIENTE
             builder.Property(p => p.IdPaciente)
                 .HasColumnName("id_paciente")
                 .IsRequired();
 
+            // FECHA
             builder.Property(p => p.FechaPago)
                 .HasColumnName("fecha_pago")
                 .HasColumnType("datetiem2")
                 .HasDefaultValueSql("SYSDATETIME()");
 
+            // MONTO
             builder.Property(p => p.Monto)
                 .HasColumnName("monto")
-                .HasPrecision(12, 2)
+                .HasColumnType("decimal(12,2)")
                 .IsRequired();
 
+            // MÉTODO DE PAGO
             builder.Property(p => p.MetodoPago)
                 .HasColumnName("metodo_pago")
                 .HasConversion(
@@ -39,23 +55,15 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
                 .HasMaxLength(20)
                 .IsRequired();
 
+            // OBSERVACIONES
             builder.Property(p => p.Observaciones)
                 .HasColumnName("observaciones");
 
-            builder.ToTable(
-                "pagos",
-                TableBuilder =>
-                {
-                    TableBuilder.HasCheckConstraint(
-                        "CK_pagos_monto",
-                        "[monto] > 0");
-                });
-
-            builder.HasIndex(p => new
-            {
-                p.IdPaciente,
-                p.FechaPago
-            });
+            // RELACIÓN CON PACIENTE
+            builder.HasOne(p => p.Paciente)
+                .WithMany(p => p.Pagos)
+                .HasForeignKey(p => p.IdPaciente)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
