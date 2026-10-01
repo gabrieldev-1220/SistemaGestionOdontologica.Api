@@ -29,7 +29,7 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
             // FECHA
             builder.Property(h => h.Fecha)
                 .HasColumnName("fecha")
-                .HasColumnType("datetiem2")
+                .HasColumnType("datetime2")
                 .IsRequired();
 
             // INFORMACIÓN CLÍNICA

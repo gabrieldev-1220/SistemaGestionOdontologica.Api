@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|g:\\dotnet\\webapp\\sistemagestionodontologica\\sistemagestionodontologica.api\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|solutionrelative:sistemagestionodontologica.api\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|g:\\dotnet\\webapp\\sistemagestionodontologica\\sistemagestionodontologica.api\\entities\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|solutionrelative:sistemagestionodontologica.api\\entities\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "SistemaGestionOdontologica.Api\\Data\\ApplicationDbContext.cs",
-              "ToolTip": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "SistemaGestionOdontologica.Api\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAuwCcAAAABAAAAAAAAAA==",
+              "Title": "Paciente.cs",
+              "DocumentMoniker": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Entities\\Paciente.cs",
+              "RelativeDocumentMoniker": "SistemaGestionOdontologica.Api\\Entities\\Paciente.cs",
+              "ToolTip": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Entities\\Paciente.cs",
+              "RelativeToolTip": "SistemaGestionOdontologica.Api\\Entities\\Paciente.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwB0AAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-28T12:46:45.03Z",
+              "WhenOpened": "2026-10-01T19:57:39.65Z",
               "EditorCaption": ""
             }
           ]

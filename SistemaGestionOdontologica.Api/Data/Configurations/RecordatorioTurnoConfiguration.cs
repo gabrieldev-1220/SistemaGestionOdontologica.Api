@@ -14,7 +14,7 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
                 TableBuilder =>
                 {
                     TableBuilder.HasCheckConstraint(
-                        "CK_recordatorios_turno",
+                        "CK_recordatorios_tipo",
                         "[tipo] IN ('email','whatsapp', 'sms')");
                 });
 

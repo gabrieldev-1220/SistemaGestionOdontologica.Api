@@ -18,10 +18,10 @@ namespace SistemaGestionOdontologica.Api.Entities
         public DateTime FechaNacimiento { get; set; }
 
         [Required]
-        public string Telefono { get; set; }
+        public string Telefono { get; set; } = string.Empty;
 
         [Required]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
         public string? Direccion { get; set; }
         public DateTime FechaRegistro { get; set; }
         public bool Activo { get; set; }

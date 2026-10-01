@@ -1,7 +1,5 @@
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\bin\Debug\net10.0\appsettings.Development.json
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\bin\Debug\net10.0\appsettings.json
-G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\bin\Debug\net10.0\JwtKeyGeneratorApp\obj\JwtKeyGeneratorApp.csproj.nuget.dgspec.json
-G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\bin\Debug\net10.0\JwtKeyGeneratorApp\obj\project.assets.json
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\bin\Debug\net10.0\SistemaGestionOdontologica.Api.staticwebassets.endpoints.json
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\bin\Debug\net10.0\SistemaGestionOdontologica.Api.exe
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\bin\Debug\net10.0\SistemaGestionOdontologica.Api.deps.json
@@ -153,6 +151,7 @@ G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\D
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\SistemaGestionOdontologica.Api.csproj.CoreCompileInputs.cache
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\SistemaGestionOdontologica.Api.MvcApplicationPartsAssemblyInfo.cs
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\SistemaGestionOdontologica.Api.MvcApplicationPartsAssemblyInfo.cache
+G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\SistemaGestionOdontologica.Api.sourcelink.json
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\rjimswa.dswa.cache.json
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
@@ -162,11 +161,9 @@ G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\D
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\staticwebassets.development.json
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\swae.build.ex.cache
-G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\SistemaG.AC94AC1E.Up2Date
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\SistemaGestionOdontologica.Api.dll
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\refint\SistemaGestionOdontologica.Api.dll
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\SistemaGestionOdontologica.Api.pdb
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\SistemaGestionOdontologica.Api.genruntimeconfig.cache
 G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\ref\SistemaGestionOdontologica.Api.dll
-G:\DotNET\WebApp\SistemaGestionOdontologica\SistemaGestionOdontologica.Api\obj\Debug\net10.0\SistemaGestionOdontologica.Api.sourcelink.json

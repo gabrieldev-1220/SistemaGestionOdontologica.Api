@@ -37,7 +37,7 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
             // FECHA
             builder.Property(p => p.FechaPago)
                 .HasColumnName("fecha_pago")
-                .HasColumnType("datetiem2")
+                .HasColumnType("datetime2")
                 .HasDefaultValueSql("SYSDATETIME()");
 
             // MONTO

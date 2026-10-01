@@ -67,7 +67,7 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
             // ÚLTIMO ACCESO
             builder.Property(u => u.UltimoAcceso)
                 .HasColumnName("ultimo_acceso")
-                .HasColumnType("datetiem2");
+                .HasColumnType("datetime2");
 
             // RELACIÓN CON ODONTÓLOGO
             builder.HasOne(u => u.Odontologo)
