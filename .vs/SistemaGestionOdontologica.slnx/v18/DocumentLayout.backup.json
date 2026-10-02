@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|g:\\dotnet\\webapp\\sistemagestionodontologica\\sistemagestionodontologica.api\\entities\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|solutionrelative:sistemagestionodontologica.api\\entities\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|g:\\dotnet\\webapp\\sistemagestionodontologica\\sistemagestionodontologica.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|solutionrelative:sistemagestionodontologica.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|g:\\dotnet\\webapp\\sistemagestionodontologica\\sistemagestionodontologica.api\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|solutionrelative:sistemagestionodontologica.api\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +23,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Paciente.cs",
-              "DocumentMoniker": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Entities\\Paciente.cs",
-              "RelativeDocumentMoniker": "SistemaGestionOdontologica.Api\\Entities\\Paciente.cs",
-              "ToolTip": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Entities\\Paciente.cs",
-              "RelativeToolTip": "SistemaGestionOdontologica.Api\\Entities\\Paciente.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAYwB0AAABLAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Program.cs",
+              "RelativeDocumentMoniker": "SistemaGestionOdontologica.Api\\Program.cs",
+              "ToolTip": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Program.cs",
+              "RelativeToolTip": "SistemaGestionOdontologica.Api\\Program.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAQwF8AAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T19:57:39.65Z",
+              "WhenOpened": "2026-10-02T21:13:23.738Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "SistemaGestionOdontologica.Api\\Services\\AuthService.cs",
+              "ToolTip": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Services\\AuthService.cs",
+              "RelativeToolTip": "SistemaGestionOdontologica.Api\\Services\\AuthService.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAowDIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-02T20:34:23.43Z",
               "EditorCaption": ""
             }
           ]

@@ -25,11 +25,9 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="DTOs\" />
     <Folder Include="Middleware\" />
     <Folder Include="Mapping\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

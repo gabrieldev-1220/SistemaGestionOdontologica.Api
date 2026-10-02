@@ -4,6 +4,9 @@ using SistemaGestionOdontologica.Api.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using SistemaGestionOdontologica.Api.Settings;
+using SistemaGestionOdontologica.Api.Security;
+using SistemaGestionOdontologica.Api.Services;
 
 namespace SistemaGestionOdontologica.Api
 {
@@ -12,6 +15,9 @@ namespace SistemaGestionOdontologica.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.Configure<JwtSettings>(
+                builder.Configuration.GetSection("Jwt"));
 
             ///=============================================================
             ///                 CONFIGURACION DE JWT
@@ -34,6 +40,7 @@ namespace SistemaGestionOdontologica.Api
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
             ///=============================================================
             ///                     BASE DE DATOS
@@ -83,6 +90,10 @@ namespace SistemaGestionOdontologica.Api
 
             builder.Services.AddOpenApi();
             builder.Services.AddEndpointsApiExplorer();
+
+            builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+            builder.Services.AddScoped<IPasswordService, PasswordService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
             var app = builder.Build();
 
