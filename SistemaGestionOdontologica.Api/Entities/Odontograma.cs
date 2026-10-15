@@ -8,10 +8,10 @@
         public DateTime FechaCreacion { get; set; }
         public string? Observaciones { get; set; }
 
-
+        // RELACIONES.
         public Paciente Paciente { get; set; } = null!;
         public Odontologo Odontologo { get; set; } = null!;
-        public ICollection<OdontogramaDetalle> Detalle { get; set; }
-         = new List<OdontogramaDetalle>();
+        public ICollection<OdontogramaDetalle> Detalles { get; set; }
+            = new List<OdontogramaDetalle>();
     }
 }

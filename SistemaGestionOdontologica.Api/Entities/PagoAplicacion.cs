@@ -8,7 +8,7 @@
         public decimal MontoAplicado { get; set; }
         public DateTime FechaAplicacion { get; set; }
 
-        public Pago Pado { get; set; } = null!;
+        public Pago Pago { get; set; } = null!;
         public Factura Factura { get; set; } = null!;
     }
 }

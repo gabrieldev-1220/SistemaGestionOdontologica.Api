@@ -9,7 +9,7 @@
         public string MetodoPago { get; set; } = string.Empty;
         public string? Observaciones {  get; set; }
 
-        //Relaciones
+        // RELACIONES.
         public Paciente Paciente { get; set; } = null!;
         public ICollection<PagoAplicacion> Aplicaciones { get; set; }
             = new List<PagoAplicacion>();

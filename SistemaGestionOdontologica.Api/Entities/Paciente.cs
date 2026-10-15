@@ -13,16 +13,13 @@
         public DateTime FechaRegistro { get; set; }
         public bool Activo { get; set; } = true;
 
-        // Relaciones.
+        // RELACIONES.
         public ICollection<Turno> Turnos { get; set; }
             = new List<Turno>();
-
         public ICollection<HistorialClinico> HistorialesClinicos { get; set; }
             = new List<HistorialClinico>();
-
         public ICollection<Pago> Pagos { get; set; }
             = new List<Pago>();
-
         public ICollection<Factura> Facturas { get; set; }
             = new List<Factura>();
         public ICollection<Odontograma> Odontogramas { get; set; }

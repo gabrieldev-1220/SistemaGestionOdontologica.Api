@@ -10,10 +10,11 @@
         public decimal Total { get; set; }
         public string? Observaciones { get; set; }
 
-        // Relaciones.
+        // RELACIONES.
         public Paciente Paciente { get; set; } = null!;
+
         public ICollection<FacturaDetalle> Detalles { get; set; }
-            =  new List<FacturaDetalle>();
+            = new List<FacturaDetalle>();
         public ICollection<PagoAplicacion> Aplicaciones { get; set; }
             = new List<PagoAplicacion>();
     }

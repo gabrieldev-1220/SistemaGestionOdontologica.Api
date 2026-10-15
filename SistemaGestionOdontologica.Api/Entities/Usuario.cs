@@ -11,7 +11,7 @@
         public DateTime FechaCreacion { get; set; }
         public DateTime? UltimoAcceso { get; set; }
 
-        //Relacion
+        // RELACIONES.
         public Odontologo? Odontologo { get; set; }
         public ICollection<Bitacora> RegistrosBitacora { get; set; }
             = new List<Bitacora>();

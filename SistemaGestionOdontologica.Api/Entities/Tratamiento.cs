@@ -9,9 +9,9 @@
         public bool Activo { get; set; } = true;
         public DateTime FechaCreacion { get; set; }
 
-        // Relaciones.
-        public ICollection<HistorialClinico> HistorialTratamientos { get; set; }
-            = new List<HistorialClinico>();
+        // RELACIONES.
+        public ICollection<HistorialTratamiento> HistorialTratamientos { get; set; }
+            = new List<HistorialTratamiento>();
         public ICollection<FacturaDetalle> FacturaDetalles { get; set; }
             = new List<FacturaDetalle>();
     }

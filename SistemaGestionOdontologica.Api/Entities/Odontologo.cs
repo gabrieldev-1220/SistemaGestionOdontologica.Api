@@ -11,12 +11,11 @@
         public string Especialidad {  get; set; } = string.Empty;
         public bool Activo { get; set; } = true;
 
-        // Relaciones.
+        // RELACIONES.
         public ICollection<Turno> Turnos { get; set; }
             = new List<Turno>();
         public ICollection<HistorialClinico> HistorialesClinicos { get; set; }
             = new List<HistorialClinico>();
-
         public ICollection<Usuario> Usuarios { get; set; }
             = new List<Usuario>();
         public ICollection<Odontograma> Odontogramas { get; set; }

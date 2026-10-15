@@ -8,9 +8,8 @@
         public string Descripcion { get; set; } = string.Empty;
         public int Cantidad { get; set; } = 1;
         public decimal PrecioUnitario { get; set; }
-        
 
-        // Relaciones;
+        public Factura Factura { get; set; } = null!;
         public Tratamiento? Tratamiento { get; set; }
     }
 }

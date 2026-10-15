@@ -10,7 +10,7 @@
         public string Diagnostico {  get; set; } = string.Empty;
         public string Observaciones {  get; set; } = string.Empty;
 
-        // Relaciones.
+        //  RELACIONES.
         public Paciente Paciente { get; set; } = null!;
         public Odontologo Odontologo { get; set; } = null!;
         public ICollection<HistorialTratamiento> TratamientosRealizados { get; set; }

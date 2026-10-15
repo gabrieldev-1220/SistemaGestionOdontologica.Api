@@ -2,13 +2,13 @@
 {
     public class Bitacora
     {
-        public long IdBotacora { get; set; }
+        public long IdBitacora { get; set; }
         public int IdUsuario { get; set; }
-        public string Accion { get; set; } = string.Empty;
+        public string Accion {  get; set; } = string.Empty;
         public DateTime Fecha { get; set; }
         public string? Detalles { get; set; }
 
-        // Relaciones
+        // RELACIONES.
         public Usuario Usuario { get; set; } = null!;
     }
 }
