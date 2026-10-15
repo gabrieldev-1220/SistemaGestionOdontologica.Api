@@ -34,7 +34,35 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
                 .HasColumnType("datetime2")
                 .HasDefaultValueSql("SYSDATETIME()");
 
+            builder.Property(p => p.Monto)
+                .HasColumnName("monto")
+                .HasPrecision(12, 2)
+                .IsRequired();
 
+            builder.Property(p => p.MetodoPago)
+                .HasColumnName("metodo_pago")
+                .HasMaxLength(20)
+                .IsRequired();
+
+            builder.Property(p => p.Observaciones)
+                .HasColumnName("observaciones")
+                .HasColumnType("nvarchar(max)");
+
+            builder.HasIndex(p => new
+            {
+                p.IdPaciente,
+                p.FechaPago
+            });
+
+            builder.HasOne(p => p.Paciente)
+                .WithMany(pa => pa.Pagos)
+                .HasForeignKey(p => p.IdPaciente)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(p => p.Aplicaciones)
+                .WithOne(a => a.Pago)
+                .HasForeignKey(a => a.IdPago)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

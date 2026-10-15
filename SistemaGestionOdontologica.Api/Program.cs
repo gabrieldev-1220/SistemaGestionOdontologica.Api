@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using SistemaGestionOdontologica.Api.Data;
+
 namespace SistemaGestionOdontologica.Api
 {
     public class Program
@@ -13,6 +16,16 @@ namespace SistemaGestionOdontologica.Api
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+            // Entity Framework Core + SQL Server.
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                /// En "DefaultConnection" se coloca el nombre que se le pone a la cadena de conexión configurada en appsettings.Development.json
+                /// Si se coloca como nombre CadenaConexion en lugar de DefaultConnection en appsettings.Development.json, entonces ese mismo nombre
+                /// se coloca aquí en lugar de "DefaultConnection"
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             var app = builder.Build();
 
@@ -32,7 +45,6 @@ namespace SistemaGestionOdontologica.Api
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
