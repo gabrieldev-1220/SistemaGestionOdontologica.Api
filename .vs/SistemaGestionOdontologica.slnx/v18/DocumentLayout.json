@@ -5,6 +5,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|g:\\dotnet\\webapp\\sistemagestionodontologica\\sistemagestionodontologica.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|solutionrelative:sistemagestionodontologica.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|g:\\dotnet\\webapp\\sistemagestionodontologica\\sistemagestionodontologica.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|solutionrelative:sistemagestionodontologica.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +18,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "SistemaGestionOdontologica.Api\\Controllers\\AuthController.cs",
+              "ToolTip": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "SistemaGestionOdontologica.Api\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAwwHsAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-17T22:00:08.574Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +41,7 @@
               "RelativeDocumentMoniker": "SistemaGestionOdontologica.Api\\Program.cs",
               "ToolTip": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Program.cs",
               "RelativeToolTip": "SistemaGestionOdontologica.Api\\Program.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAiwG8AAABcAAAAAAAAAA==",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAiwH8AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-17T21:50:57.3Z",
               "EditorCaption": ""

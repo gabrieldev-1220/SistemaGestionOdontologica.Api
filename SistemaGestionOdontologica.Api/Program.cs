@@ -116,7 +116,9 @@ namespace SistemaGestionOdontologica.Api
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.MapOpenApi();
+                /// Colocar .AllowAnonymous() para permitir el acceso anónimo al documento OpenAPI que Swagger necesita poder cargar
+                /// porque se agregó la politica global options.FallbackPolicy por lo que los endpoints requieren autenticación.
+                app.MapOpenApi().AllowAnonymous();
 
                 app.UseSwaggerUI(options =>
                 {
@@ -127,6 +129,8 @@ namespace SistemaGestionOdontologica.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseRouting();
 
             app.UseAuthentication();
 
