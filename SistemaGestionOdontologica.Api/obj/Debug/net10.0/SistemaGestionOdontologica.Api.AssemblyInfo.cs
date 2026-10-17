@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("eb9880e9-440d-485c-8a9d-c2341c7f20f2")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("SistemaGestionOdontologica.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1fa114fcaa71268d16c55404a4b13707b8c1a22d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3f68fa069d8b872226cd209755947b3fcf581781")]
 [assembly: System.Reflection.AssemblyProductAttribute("SistemaGestionOdontologica.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SistemaGestionOdontologica.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
