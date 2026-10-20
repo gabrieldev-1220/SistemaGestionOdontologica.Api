@@ -7,8 +7,8 @@
       "RelativeMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|solutionrelative:sistemagestionodontologica.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|g:\\dotnet\\webapp\\sistemagestionodontologica\\sistemagestionodontologica.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|solutionrelative:sistemagestionodontologica.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|g:\\dotnet\\webapp\\sistemagestionodontologica\\sistemagestionodontologica.api\\services\\pacienteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7408BBE-F8E4-4BAE-5522-813A71E8C437}|SistemaGestionOdontologica.Api\\SistemaGestionOdontologica.Api.csproj|solutionrelative:sistemagestionodontologica.api\\services\\pacienteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,21 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "SistemaGestionOdontologica.Api\\Controllers\\AuthController.cs",
-              "ToolTip": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "SistemaGestionOdontologica.Api\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAGIAAAAAAAAAAAAwwHsAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-17T22:00:08.574Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -41,9 +28,22 @@
               "RelativeDocumentMoniker": "SistemaGestionOdontologica.Api\\Program.cs",
               "ToolTip": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Program.cs",
               "RelativeToolTip": "SistemaGestionOdontologica.Api\\Program.cs",
-              "ViewState": "AgIAAGUAAAAAAAAAAAAiwH8AAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAQwHcAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-17T21:50:57.3Z",
+              "WhenOpened": "2026-10-20T22:39:33.044Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PacienteService.cs",
+              "DocumentMoniker": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Services\\PacienteService.cs",
+              "RelativeDocumentMoniker": "SistemaGestionOdontologica.Api\\Services\\PacienteService.cs",
+              "ToolTip": "G:\\DotNET\\WebApp\\SistemaGestionOdontologica\\SistemaGestionOdontologica.Api\\Services\\PacienteService.cs",
+              "RelativeToolTip": "SistemaGestionOdontologica.Api\\Services\\PacienteService.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA0wB4AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T20:16:47.073Z",
               "EditorCaption": ""
             }
           ]

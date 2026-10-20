@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Seed\" />
     <Folder Include="DTOs\HistorialClinico\" />
     <Folder Include="DTOs\Facturacion\" />
     <Folder Include="DTOs\Reportes\" />
@@ -36,7 +35,6 @@
     <Folder Include="Middleware\" />
     <Folder Include="BackgroundServices\" />
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Options\" />
     <Folder Include="Validators\" />
   </ItemGroup>

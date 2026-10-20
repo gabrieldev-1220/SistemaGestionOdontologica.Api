@@ -1,3 +1,5 @@
+using SistemaGestionOdontologica.Api.Security;
+using SistemaGestionOdontologica.Api.Data.Seed;
 using Microsoft.AspNetCore.Identity;
 using SistemaGestionOdontologica.Api.Entities;
 using System.Security.Claims;
@@ -14,7 +16,7 @@ namespace SistemaGestionOdontologica.Api
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +25,10 @@ namespace SistemaGestionOdontologica.Api
             builder.Services.AddControllers();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
+            builder.Services.AddOpenApi(options =>
+            {
+                options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+            });
 
             // Entity Framework Core + SQL Server.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -111,11 +116,17 @@ namespace SistemaGestionOdontologica.Api
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
 
-            var app = builder.Build();
+            //Servicios de pacientes
+            builder.Services.AddScoped<IPacienteService, PacienteService>();
+
+            var app = builder.Build();           
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                // Inicialización controlada del administrador
+                await AdministradorInicializador.InicializarAsync(app.Services, app.Configuration);
+
                 /// Colocar .AllowAnonymous() para permitir el acceso anónimo al documento OpenAPI que Swagger necesita poder cargar
                 /// porque se agregó la politica global options.FallbackPolicy por lo que los endpoints requieren autenticación.
                 app.MapOpenApi().AllowAnonymous();
