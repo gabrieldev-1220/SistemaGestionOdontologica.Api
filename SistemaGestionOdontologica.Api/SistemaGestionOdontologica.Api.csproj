@@ -32,7 +32,6 @@
     <Folder Include="DTOs\Tratamientos\" />
     <Folder Include="DTOs\Turnos\" />
     <Folder Include="DTOs\Odontologos\" />
-    <Folder Include="Middleware\" />
     <Folder Include="BackgroundServices\" />
     <Folder Include="Data\Migrations\" />
     <Folder Include="Options\" />

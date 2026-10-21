@@ -1,3 +1,4 @@
+using SistemaGestionOdontologica.Api.Middleware;
 using SistemaGestionOdontologica.Api.Security;
 using SistemaGestionOdontologica.Api.Data.Seed;
 using Microsoft.AspNetCore.Identity;
@@ -119,13 +120,16 @@ namespace SistemaGestionOdontologica.Api
             //Servicios de pacientes
             builder.Services.AddScoped<IPacienteService, PacienteService>();
 
-            var app = builder.Build();           
+            var app = builder.Build();
+
+            // Registración de Middleware
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 // Inicialización controlada del administrador
-                await AdministradorInicializador.InicializarAsync(app.Services, app.Configuration);
+                await AdministradorInicializador.InicializarAsync(app.Services, app.Configuration);                
 
                 /// Colocar .AllowAnonymous() para permitir el acceso anónimo al documento OpenAPI que Swagger necesita poder cargar
                 /// porque se agregó la politica global options.FallbackPolicy por lo que los endpoints requieren autenticación.
