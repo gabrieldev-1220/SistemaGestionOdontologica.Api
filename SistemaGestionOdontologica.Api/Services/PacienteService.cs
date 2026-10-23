@@ -12,10 +12,12 @@ namespace SistemaGestionOdontologica.Api.Services
     public class PacienteService : IPacienteService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IAuditoriaService _auditoriaService;
 
-        public PacienteService(ApplicationDbContext context)
+        public PacienteService(ApplicationDbContext context, IAuditoriaService auditoriaService)
         {
             _context = context;
+            _auditoriaService = auditoriaService;
         }
 
         // Obtener pcientes con filtros y paginación.
@@ -142,11 +144,33 @@ namespace SistemaGestionOdontologica.Api.Services
                 Activo = true
             };
 
-            _context.Pacientes.Add(paciente);
+            // Se inicia una transacción para que el paciente y su auditoría se guarden de forma atómica.
+            await using var transaccion = await _context.Database.BeginTransactionAsync(cancellationToken);
 
-            await GuardarCambiosAsync(cancellationToken);
+            try
+            {
+                // Se guarda el paciente para obtener el ID generado automáticamente por SQL Server.
+                _context.Pacientes.Add(paciente);
 
-            return MapearRespuesta(paciente);
+                await GuardarCambiosAsync(cancellationToken);
+
+                // Se registra la uditoría dentrod e la misma transacción.
+                _auditoriaService.Registrar("PACIENTE_CREADO", paciente.IdPaciente);
+
+                await GuardarCambiosAsync(cancellationToken);
+
+                // Se confirma solamente cuando ambas operaciones terminaron correctamente.
+                await transaccion.CommitAsync(cancellationToken);
+
+                return MapearRespuesta(paciente);
+            }
+            catch
+            {
+                // Si algo falla, se revierten los cambios.
+                await transaccion.RollbackAsync(CancellationToken.None);
+
+                throw;
+            }
         }
 
         // Actualizar un paciente existente.
@@ -186,6 +210,8 @@ namespace SistemaGestionOdontologica.Api.Services
             paciente.Email = request.Email?.Trim() ?? string.Empty;
             paciente.Direccion = NormalizarOpcional(request.Direccion);
 
+            _auditoriaService.Registrar("PACIENTE_ACTUALIZADO", paciente.IdPaciente);
+
             await GuardarCambiosAsync(cancellationToken);
 
             return MapearRespuesta(paciente);
@@ -203,6 +229,8 @@ namespace SistemaGestionOdontologica.Api.Services
                 return true;
 
             paciente.Activo = false;
+
+            _auditoriaService.Registrar("PACIENTE_DESACTIVADO", paciente.IdPaciente);
 
             await _context.SaveChangesAsync(cancellationToken);
 
@@ -222,6 +250,8 @@ namespace SistemaGestionOdontologica.Api.Services
                 return true;
 
             paciente.Activo = true;
+
+            _auditoriaService.Registrar("PACIENTE_ACTIVADO", paciente.IdPaciente);
 
             await _context.SaveChangesAsync(cancellationToken);
 

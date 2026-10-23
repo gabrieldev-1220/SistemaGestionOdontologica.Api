@@ -8,7 +8,7 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Paciente> builder)
         {
-            builder.ToTable("paciente");
+            builder.ToTable("pacientes");
 
             builder.HasKey(p => p.IdPaciente);
 

@@ -31,7 +31,6 @@
     <Folder Include="DTOs\Pagos\" />
     <Folder Include="DTOs\Tratamientos\" />
     <Folder Include="DTOs\Turnos\" />
-    <Folder Include="DTOs\Odontologos\" />
     <Folder Include="BackgroundServices\" />
     <Folder Include="Data\Migrations\" />
     <Folder Include="Options\" />

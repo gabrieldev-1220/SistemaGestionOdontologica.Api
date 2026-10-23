@@ -512,7 +512,7 @@ namespace SistemaGestionOdontologica.Api.Data.Migrations
                     b.HasIndex("Dni")
                         .IsUnique();
 
-                    b.ToTable("paciente", (string)null);
+                    b.ToTable("pacientes", (string)null);
                 });
 
             modelBuilder.Entity("SistemaGestionOdontologica.Api.Entities.Pago", b =>
