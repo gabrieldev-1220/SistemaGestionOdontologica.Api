@@ -18,6 +18,11 @@ namespace SistemaGestionOdontologica.Api.Services
 
         public void Registrar(string accion, int idPaciente)
         {
+            Registrar(accion, "Paciente", idPaciente);
+        }
+
+        public void Registrar(string accion, string entidad, int idEntidad)
+        {
             var usuario = _httpContextAccessor.HttpContext?.User;
 
             if (usuario?.Identity?.IsAuthenticated != true)
@@ -28,15 +33,27 @@ namespace SistemaGestionOdontologica.Api.Services
             if (!int.TryParse(identificador, out int idUsuario) || idUsuario <= 0)
                 throw new UnauthorizedAccessException("No se pudo identificar al usuario autenticado.");
 
-            var registro = new Bitacora
+            // Se evita que cualquier texto arbitrario termine almacenado como nombre de entidad.
+            if (entidad != "Paciente" && entidad != "Odontologo" && entidad != "Turno")
+            {
+                throw new ArgumentException(
+                    "Entidad de auditoría no permitida.",
+                    nameof(entidad));
+            }
+
+            if (idEntidad <= 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(idEntidad));
+            }
+
+            _context.Set<Bitacora>().Add(new Bitacora
             {
                 IdUsuario = idUsuario,
                 Accion = accion,
                 Fecha = DateTime.UtcNow,
-                Detalles = $"PacienteId={idPaciente}"
-            };
-
-            _context.Set<Bitacora>().Add(registro);
+                Detalles = $"{entidad}Id={idEntidad}"
+            });
         }
     }
 }

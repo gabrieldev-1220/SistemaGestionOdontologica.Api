@@ -810,7 +810,7 @@ namespace SistemaGestionOdontologica.Api.Data.Migrations
 
                     b.ToTable("turnos", null, t =>
                         {
-                            t.HasCheckConstraint("CK_turnos_estado", "[estado] IN ('pendiente', 'confirmado', 'cancelado', 'realizado')");
+                            t.HasCheckConstraint("CK_turnos_estado", "[estado] IN ('pendiente', 'confirmado', 'cancelado', 'realizado', 'ausente')");
 
                             t.HasCheckConstraint("CK_turnos_fechas", "[fecha_hora_fin] > [fecha_hora_inicio]");
                         });

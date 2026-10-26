@@ -116,12 +116,16 @@ namespace SistemaGestionOdontologica.Api
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
-            builder.Services.AddHttpContextAccessor();
-
-            builder.Services.AddScoped<IAuditoriaService, AuditoriaService>();
+            builder.Services.AddHttpContextAccessor();           
 
             //Servicios de pacientes
             builder.Services.AddScoped<IPacienteService, PacienteService>();
+
+            builder.Services.AddScoped<IAuditoriaService, AuditoriaService>();
+
+            builder.Services.AddScoped<IOdontologoService, OdontologoService>();
+
+            builder.Services.AddScoped<ITurnoService, TurnoService>();
 
             var app = builder.Build();
 

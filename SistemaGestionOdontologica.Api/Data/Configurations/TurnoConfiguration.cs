@@ -12,7 +12,7 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
             {
                 table.HasCheckConstraint(
                     "CK_turnos_estado",
-                    "[estado] IN ('pendiente', 'confirmado', 'cancelado', 'realizado')");
+                    "[estado] IN ('pendiente', 'confirmado', 'cancelado', 'realizado', 'ausente')");
 
                 table.HasCheckConstraint(
                     "CK_turnos_fechas",
