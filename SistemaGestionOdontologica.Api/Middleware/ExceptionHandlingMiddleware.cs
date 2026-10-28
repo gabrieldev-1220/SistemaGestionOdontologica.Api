@@ -50,6 +50,12 @@ namespace SistemaGestionOdontologica.Api.Middleware
                         detalle = ex.Message;
                         break;
 
+                    case AccesoProhibidoException:
+                        statusCode = StatusCodes.Status403Forbidden;
+                        titulo = "Acceso prohibido";
+                        detalle = ex.Message;
+                        break;
+
                     default:
                         statusCode = StatusCodes.Status500InternalServerError;
                         titulo = "Error interno del servidor";

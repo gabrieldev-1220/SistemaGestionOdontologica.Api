@@ -1,5 +1,5 @@
-﻿using System.Data;
-using System.Runtime.InteropServices;
+﻿using System.Security.Claims;
+using System.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using SistemaGestionOdontologica.Api.Data;
@@ -17,12 +17,14 @@ namespace SistemaGestionOdontologica.Api.Services
 
         private readonly ApplicationDbContext _context;
         private readonly IAuditoriaService _auditoria;
+        private IHttpContextAccessor _httpContextAccessor;
 
         // CONSTRUCTOR.
-        public TurnoService(ApplicationDbContext context, IAuditoriaService auditoria)
+        public TurnoService(ApplicationDbContext context, IAuditoriaService auditoria, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _auditoria = auditoria;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<ResultadoPaginadoDto<TurnoRespuestaDto>> ObtenerPaginadosAsync(TurnoFiltroDto filtro,
@@ -36,6 +38,13 @@ namespace SistemaGestionOdontologica.Api.Services
 
             IQueryable<Turno> consulta = _context.Turnos
                 .AsNoTracking();
+
+            int? idOdontologoAutenticado = await ObtenerOdontologoAutenticadoAsync(cancellationToken);
+
+            if (idOdontologoAutenticado.HasValue)
+            {
+                consulta = consulta.Where(t => t.IdOdontologo == idOdontologoAutenticado.Value);
+            }
 
             if (filtro.IdPaciente.HasValue)
                 consulta = consulta.Where(t => t.IdPaciente == filtro.IdPaciente.Value);
@@ -106,9 +115,20 @@ namespace SistemaGestionOdontologica.Api.Services
 
         public async Task<TurnoRespuestaDto?> ObtenerPorIdAsync(int idTurno, CancellationToken cancellationToken = default)
         {
-            return await ProyectarRespuesta(_context.Turnos
+            int? idOdontologoAutenticado =
+                await ObtenerOdontologoAutenticadoAsync(cancellationToken);
+
+            IQueryable<Turno> consulta = _context.Turnos
                 .AsNoTracking()
-                .Where(t => t.IdTurno == idTurno))
+                .Where(t => t.IdTurno == idTurno);
+
+            if (idOdontologoAutenticado.HasValue)
+            {
+                consulta = consulta.Where(
+                    t => t.IdOdontologo == idOdontologoAutenticado.Value);
+            }
+
+            return await ProyectarRespuesta(consulta)
                 .FirstOrDefaultAsync(cancellationToken);
         }
 
@@ -121,11 +141,11 @@ namespace SistemaGestionOdontologica.Api.Services
             ValidarHorario(inicio, fin);
 
             await using var transaccion =
-                await _context.Database.BeginTransactionAsync(IsolationLevel.Serializable, cancellationToken);
+                await _context.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
             try
             {
-                await BloquearAgendaAsync(request.IdOdontologo, cancellationToken);
+                await BloquearEscrituraTurnosAsync(cancellationToken);
 
                 await ValidarParticipantesAsync(
                     request.IdPaciente,
@@ -174,12 +194,12 @@ namespace SistemaGestionOdontologica.Api.Services
             ValidarHorario(inicio, fin);
 
             await using var transaccion =
-                await _context.Database.BeginTransactionAsync(IsolationLevel.Serializable, cancellationToken);
+                await _context.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
 
             try
             {
                 // Se bloquea primero el turno que se va a modificar.
-                await BloquearTurnoAsync(idTurno, cancellationToken);
+                await BloquearEscrituraTurnosAsync(cancellationToken);
 
                 var turno = await _context.Turnos
                     .FirstOrDefaultAsync(t => t.IdTurno == idTurno, cancellationToken);
@@ -193,21 +213,11 @@ namespace SistemaGestionOdontologica.Api.Services
                 if (turno.Estado != "pendiente" && turno.Estado != "confirmado")
                     throw new ConflictoNegocioException("El turno no puede reprogramarse en su estado actual.");
 
-                // Si se cambia de odontólogo, se protegen ambas agendas en un orden fijo para reducir bloqueos mutuos.
-                foreach (int id in new[]
-                    {
-                       turno.IdOdontologo,
-                       request.IdOdontologo
-                    }.Distinct().OrderBy(x => x))
-                {
-                    await BloquearAgendaAsync(id, cancellationToken);
-                }
-
-                await ValidarParticipantesAsync(request.idPaciente, request.IdOdontologo, cancellationToken);
+                await ValidarParticipantesAsync(request.IdPaciente, request.IdOdontologo, cancellationToken);
 
                 await ValidarDisponibilidadAsync(request.IdOdontologo, inicio, fin, idTurno, cancellationToken);
 
-                turno.IdPaciente = request.idPaciente;
+                turno.IdPaciente = request.IdPaciente;
                 turno.IdOdontologo = request.IdOdontologo;
                 turno.FechaHoraInicio = inicio;
                 turno.FechaHoraFin = fin;
@@ -226,6 +236,122 @@ namespace SistemaGestionOdontologica.Api.Services
                 await transaccion.RollbackAsync(CancellationToken.None);
 
                 throw;
+            }
+        }
+
+        public Task<TurnoRespuestaDto?> ConfirmarAsync(int idTurno, CancellationToken cancellationToken = default)
+        {
+            return CambiarEstadoAsync(
+                idTurno,
+                "confirmado",
+                "TURNO_CONFIRMADO",
+                cancellationToken);
+        }
+
+        public Task<TurnoRespuestaDto?> CancelarAsync(int idTurno, CancellationToken cancellationToken = default)
+        {
+            return CambiarEstadoAsync(
+                idTurno,
+                "cancelado",
+                "TURNO_CANCELADO",
+                cancellationToken);
+        }
+
+        public Task<TurnoRespuestaDto?> AtenderAsync(int idTurno, CancellationToken cancellationToken = default)
+        {
+            return CambiarEstadoAsync(
+                idTurno,
+                "realizado",
+                "TURNO_REALIZADO",
+                cancellationToken);
+        }
+
+        public Task<TurnoRespuestaDto?> MarcarAusenteAsync(int idTurno, CancellationToken cancellationToken = default)
+        {
+            return CambiarEstadoAsync(
+                idTurno,
+                "ausente",
+                "TURNO_AUSENTE",
+                cancellationToken);
+        }
+
+        private async Task<TurnoRespuestaDto?> CambiarEstadoAsync(int idTurno, string nuevoEstado, string accionAuditoria,
+            CancellationToken cancellationToken)
+        {
+            await using var transaccion = await _context.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
+
+            try
+            {
+                // Impide modificacion simultáneas del mismo turno.
+                await BloquearEscrituraTurnosAsync(cancellationToken);
+
+                var turno = await _context.Turnos
+                    .FirstOrDefaultAsync(t => t.IdTurno == idTurno, cancellationToken);
+                   
+                if (turno is null)
+                {
+                    await transaccion.CommitAsync(cancellationToken);
+                    return null;
+                }
+
+                int? idOdontologoAutenticado =
+                    await ObtenerOdontologoAutenticadoAsync(cancellationToken);
+
+                if (idOdontologoAutenticado.HasValue &&
+                    turno.IdOdontologo != idOdontologoAutenticado.Value)
+                        throw new AccesoProhibidoException("No tiene permisos para modificar turnos de otro odontólogo.");
+
+                ValidarTransicionEstado(turno, nuevoEstado);
+
+                turno.Estado = nuevoEstado;
+
+                _auditoria.Registrar(accionAuditoria, "Turno", turno.IdTurno);
+
+                await _context.SaveChangesAsync(cancellationToken);
+
+                await transaccion.CommitAsync(cancellationToken);
+
+                return await ObtenerPorIdAsync(idTurno, cancellationToken);
+            }
+            catch
+            {
+                await transaccion.RollbackAsync(CancellationToken.None);
+
+                throw;
+            }
+        }
+
+        private static void ValidarTransicionEstado(Turno turno, string nuevoEstado)
+        {
+            string estadoActual = turno.Estado.Trim().ToLowerInvariant();
+
+            nuevoEstado = nuevoEstado.Trim().ToLowerInvariant();
+
+            if (estadoActual is "cancelado" or "realizado" or "ausente")
+                throw new ConflictoNegocioException("El turno se encuetnra en un estado final y no puede modificarse.");
+
+            if (estadoActual == nuevoEstado)
+                throw new ConflictoNegocioException($"El turno ya se encuentra en estado '{nuevoEstado}'.");
+
+            bool transicionPermitida =
+                (estadoActual == "pendiente" &&
+                 (nuevoEstado == "confirmado" ||
+                  nuevoEstado == "cancelado" ||
+                  nuevoEstado == "realizado" ||
+                  nuevoEstado == "ausente"))
+                ||
+                (estadoActual == "confirmado" &&
+                 (nuevoEstado == "cancelado" ||
+                  nuevoEstado == "realizado" ||
+                  nuevoEstado == "ausente"));
+
+            if (!transicionPermitida)
+                throw new ConflictoNegocioException($"No se permite cambiar un turno de '{estadoActual}' a '{nuevoEstado}'.");
+
+            if (nuevoEstado is "realizado" or "ausente")
+            {
+                if (turno.FechaHoraInicio > DateTime.Now)
+                    throw new ConflictoNegocioException("No se puede marcar un turno como realizado o ausente de su horario de inicio.");
             }
         }
 
@@ -374,6 +500,84 @@ namespace SistemaGestionOdontologica.Api.Services
                 Observaciones = t.Observaciones,
                 FechaCreacion = t.FechaCreacion
             });
+        }
+
+        private async Task BloquearEscrituraTurnosAsync(CancellationToken cancellationToken)
+        {
+            var parametroRecurso = new SqlParameter(
+                "@recurso",
+                SqlDbType.NVarChar, 255)
+            {
+                Value = "Turnos:Escrituras"
+            };
+
+            var parametroResultado = new SqlParameter(
+                "@resultado",
+                SqlDbType.Int)
+            {
+                Direction = ParameterDirection.Output
+            };
+
+            await _context.Database.ExecuteSqlRawAsync(
+                """
+                EXEC @resultado = sys.sp_getapplock
+                    @Resource = @recurso,
+                    @LockMode = 'Exclusive',
+                    @LockOwner = 'Transaction',
+                    @LockTimeout = 10000;
+                """,
+                new object[]
+                {
+                    parametroResultado,
+                    parametroRecurso
+                },
+                cancellationToken);
+
+                int resultado = (int)parametroResultado.Value;
+
+            if (resultado < 0)
+            {
+                throw new ConflictoNegocioException(
+                    "Otra operación está modificando la agenda. Intente nuevamente.");
+            }
+        }
+
+        private async Task<int?> ObtenerOdontologoAutenticadoAsync(CancellationToken cancellationToken)
+        {
+            var principal = _httpContextAccessor.HttpContext?.User;
+
+            if (principal?.Identity?.IsAuthenticated != true)
+                throw new AccesoProhibidoException("No se pudo verificar la identidad del usuario.");
+
+            string? identificador = principal.FindFirstValue(
+                ClaimTypes.NameIdentifier);
+
+            if (!int.TryParse(identificador, out int idUsuario) ||
+                idUsuario <= 0)
+            {
+                throw new AccesoProhibidoException("No se pudo identificar al usuario autenticado.");
+            }
+
+            var usuario = await _context.Usuarios
+                .AsNoTracking()
+                .Where(u => u.IdUsuario == idUsuario && u.Activo)
+                .Select(u => new
+                {
+                    u.Rol,
+                    u.IdOdontologo
+                })
+                .FirstOrDefaultAsync(cancellationToken);
+
+            if (usuario is null)
+                throw new AccesoProhibidoException("El usuario no existe o se encuentra inactivo.");
+
+            if (usuario.Rol != "odontologo")
+                return null;
+
+            if (!usuario.IdOdontologo.HasValue)
+                throw new AccesoProhibidoException("El usuario odontólogo no tiene un profesional asociado.");
+
+            return usuario.IdOdontologo.Value;
         }
     }
 }

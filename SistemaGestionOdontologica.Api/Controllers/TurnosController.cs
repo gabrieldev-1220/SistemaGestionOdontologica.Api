@@ -93,5 +93,77 @@ namespace SistemaGestionOdontologica.Api.Controllers
 
             return Ok(turno);
         }
+
+        // PATCH /api/turnos/{idTurno}/confirmar
+        [HttpPatch("{idTurno:int}/confirmar")]
+        [Authorize(Roles = "admin,asistente")]
+        public async Task<ActionResult<TurnoRespuestaDto>> Confirmar(int idTurno, CancellationToken cancellationToken)
+        {
+            var turno = await _turnoService.ConfirmarAsync(idTurno, cancellationToken);
+
+            if (turno is null)
+            {
+                return NotFound(new
+                {
+                    mensaje = "El turno solicitado no existe."
+                });
+            }
+
+            return Ok(turno);
+        }
+
+        // PATCH /api/turnos/{idTurno}/cancelar
+        [HttpPatch("{idTurno:int}/cancelar")]
+        [Authorize(Roles = "admin,asistente")]
+        public async Task<ActionResult<TurnoRespuestaDto>> Cancelar(int idTurno, CancellationToken cancellationToken)
+        {
+            var turno = await _turnoService.CancelarAsync(idTurno, cancellationToken);
+
+            if (turno is null)
+            {
+                return NotFound(new
+                {
+                    mensaje = "El turno solicitado no existe."
+                });
+            }
+
+            return Ok(turno);
+        }
+
+        // PATCH /api/turnos/{idTurno}/atender
+        [HttpPatch("{idTurno:int}/atender")]
+        [Authorize(Roles = "admin,odontologo")]
+        public async Task<ActionResult<TurnoRespuestaDto>> Atender(int idTurno, CancellationToken cancellationToken)
+        {
+            var turno = await _turnoService.AtenderAsync(idTurno, cancellationToken);
+
+            if (turno is null)
+            {
+                return NotFound(new
+                {
+                    mensaje = "El turno solicitado no existe."
+                });
+            }
+
+            return Ok(turno);
+        }
+
+        // PATCH /api/turnos/{idTurno}/ausente
+        [HttpPatch("{idTurno:int}/ausente")]
+        [Authorize(Roles = "admin,odontologo,asistente")]
+        public async Task<ActionResult<TurnoRespuestaDto>> MarcarAusente(int idTurno, CancellationToken cancellationToken)
+        {
+            var turno = await _turnoService.MarcarAusenteAsync(idTurno, cancellationToken);
+
+            if (turno is null)
+            {
+                return NotFound(new
+                {
+                    mensaje = "El turno solicitado no existe."
+                });
+            }
+
+            return Ok(turno);
+        }
     }
 }

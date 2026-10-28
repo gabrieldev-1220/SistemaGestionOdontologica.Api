@@ -5,7 +5,7 @@ namespace SistemaGestionOdontologica.Api.DTOs.Turnos
     public sealed class ActualizarTurnoDto
     {
         [Range(1, int.MaxValue, ErrorMessage = "Debe seleccionar un paciente válido.")]
-        public int idPaciente { get; set; }
+        public int IdPaciente { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "Debe seleccionar un odontólogo válido.")]
         public int IdOdontologo { get; set; }

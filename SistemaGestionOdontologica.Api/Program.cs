@@ -127,6 +127,8 @@ namespace SistemaGestionOdontologica.Api
 
             builder.Services.AddScoped<ITurnoService, TurnoService>();
 
+            builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+
             var app = builder.Build();
 
             // Registración de Middleware
