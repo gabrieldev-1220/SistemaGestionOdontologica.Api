@@ -90,8 +90,9 @@ namespace SistemaGestionOdontologica.Api.Data.Migrations
         }
 
         /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
+        protected override void Down(MigrationBuilder migrationBuilder) // Este método sirve para revertir cambios si fuera necesario.
         {
+            
             migrationBuilder.DropForeignKey(
                 name: "FK_facturas_pacientes_id_paciente",
                 table: "facturas");

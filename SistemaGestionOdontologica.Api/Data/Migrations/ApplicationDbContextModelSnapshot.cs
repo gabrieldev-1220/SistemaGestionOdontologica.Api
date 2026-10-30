@@ -240,6 +240,12 @@ namespace SistemaGestionOdontologica.Api.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("fecha");
 
+                    b.Property<DateTime>("FechaRegistroUtc")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("fecha_registro_utc")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
                     b.Property<int>("IdOdontologo")
                         .HasColumnType("int")
                         .HasColumnName("id_odontologo");
@@ -247,6 +253,10 @@ namespace SistemaGestionOdontologica.Api.Data.Migrations
                     b.Property<int>("IdPaciente")
                         .HasColumnType("int")
                         .HasColumnName("id_paciente");
+
+                    b.Property<int?>("IdTurno")
+                        .HasColumnType("int")
+                        .HasColumnName("id_turno");
 
                     b.Property<string>("MotivoConsulta")
                         .IsRequired()
@@ -261,6 +271,8 @@ namespace SistemaGestionOdontologica.Api.Data.Migrations
                     b.HasKey("IdHistorial");
 
                     b.HasIndex("IdOdontologo");
+
+                    b.HasIndex("IdTurno");
 
                     b.HasIndex("IdPaciente", "Fecha");
 
@@ -945,9 +957,16 @@ namespace SistemaGestionOdontologica.Api.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("SistemaGestionOdontologica.Api.Entities.Turno", "Turno")
+                        .WithMany("HistorialesClinicos")
+                        .HasForeignKey("IdTurno")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("Odontologo");
 
                     b.Navigation("Paciente");
+
+                    b.Navigation("Turno");
                 });
 
             modelBuilder.Entity("SistemaGestionOdontologica.Api.Entities.HistorialTratamiento", b =>
@@ -1137,6 +1156,8 @@ namespace SistemaGestionOdontologica.Api.Data.Migrations
 
             modelBuilder.Entity("SistemaGestionOdontologica.Api.Entities.Turno", b =>
                 {
+                    b.Navigation("HistorialesClinicos");
+
                     b.Navigation("Recordatorios");
                 });
 

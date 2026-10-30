@@ -21,7 +21,7 @@ namespace SistemaGestionOdontologica.Api.Data.Migrations
         }
 
         /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
+        protected override void Down(MigrationBuilder migrationBuilder) // Este método sirve para revertir cambios si fuera necesario.
         {
             migrationBuilder.DropCheckConstraint(
                 name: "CK_turnos_estado",

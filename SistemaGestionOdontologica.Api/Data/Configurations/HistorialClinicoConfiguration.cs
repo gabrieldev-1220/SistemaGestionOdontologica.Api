@@ -12,6 +12,7 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
 
             builder.HasKey(h => h.IdHistorial);
 
+            // PROPIEDADES.
             builder.Property(h => h.IdHistorial)
                 .HasColumnName("id_historial")
                 .ValueGeneratedOnAdd();
@@ -24,9 +25,19 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
                 .HasColumnName("id_odontologo")
                 .IsRequired();
 
+            builder.Property(h => h.IdTurno)
+                .HasColumnName("id_turno")
+                .IsRequired(false);
+
             builder.Property(h => h.Fecha)
                 .HasColumnName("fecha")
                 .HasColumnType("datetime2")
+                .IsRequired();
+
+            builder.Property(h => h.FechaRegistroUtc)
+                .HasColumnName("fecha_registro_utc")
+                .HasColumnType("datetime2")
+                .HasDefaultValueSql("GETUTCDATE()")
                 .IsRequired();
 
             builder.Property(h => h.MotivoConsulta)
@@ -44,12 +55,16 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
                 .HasColumnType("nvarchar(max)")
                 .IsRequired();
 
+            // INDICES
             builder.HasIndex(h => new
             {
                 h.IdPaciente,
                 h.Fecha
             });
 
+            builder.HasIndex(h => h.IdTurno);
+
+            // RELACIONES.
             builder.HasOne(h => h.Paciente)
                 .WithMany(p => p.HistorialesClinicos)
                 .HasForeignKey(h => h.IdPaciente)
@@ -58,6 +73,11 @@ namespace SistemaGestionOdontologica.Api.Data.Configurations
             builder.HasOne(h => h.Odontologo)
                 .WithMany(o => o.HistorialesClinicos)
                 .HasForeignKey(h => h.IdOdontologo)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(h => h.Turno)
+                .WithMany(t => t.HistorialesClinicos)
+                .HasForeignKey(h => h.IdTurno)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(h => h.TratamientosRealizados)

@@ -16,5 +16,7 @@
         public Odontologo Odontologo { get; set; } = null!;
         public ICollection<RecordatorioTurno> Recordatorios { get; set; }
             = new List<RecordatorioTurno>();
+        public ICollection<HistorialClinico> HistorialesClinicos { get; set; }
+            = new List<HistorialClinico>(); 
     }
 }

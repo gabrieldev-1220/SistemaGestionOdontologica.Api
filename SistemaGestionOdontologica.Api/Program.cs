@@ -100,6 +100,114 @@ namespace SistemaGestionOdontologica.Api
                         NameClaimType = ClaimTypes.Name,
                         RoleClaimType = ClaimTypes.Role
                     };
+
+                    // Validaciones adicionales después de verificar el JWT.
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnTokenValidated = async context =>
+                        {
+                            var principal = context.Principal;
+
+                            if (principal?.Identity?.IsAuthenticated != true)
+                            {
+                                context.Fail("No se pudo verificar la identidad.");
+                                return;
+                            }
+
+                            // Obtener el ID del usuario desde el JWT.
+                            var idUsuarioTexto = principal.FindFirstValue(
+                                ClaimTypes.NameIdentifier);
+
+                            if (!int.TryParse(idUsuarioTexto, out int idUsuario) ||
+                                idUsuario <= 0)
+                            {
+                                context.Fail("Identificador de usuario inválido.");
+                                return;
+                            }
+
+                            // Obtener el rol declarado en el JWT.
+                            var rolToken = principal.FindFirstValue(
+                                ClaimTypes.Role);
+
+                            if (string.IsNullOrWhiteSpace(rolToken))
+                            {
+                                context.Fail("El token no contiene un rol válido.");
+                                return;
+                            }
+
+                            // Resolver un DbContext para esta solicitud.
+                            var dbContext = context.HttpContext.RequestServices
+                                .GetRequiredService<ApplicationDbContext>();
+
+                            // Consultar el estado actual del usuario.
+                            var usuario = await dbContext.Usuarios
+                                .AsNoTracking()
+                                .Where(u => u.IdUsuario == idUsuario)
+                                .Select(u => new
+                                {
+                                    u.Activo,
+                                    u.Rol,
+                                    u.IdOdontologo
+                                })
+                                .FirstOrDefaultAsync(
+                                    context.HttpContext.RequestAborted);
+
+                            if (usuario is null || !usuario.Activo)
+                            {
+                                context.Fail(
+                                    "El usuario no existe o está inactivo.");
+                                return;
+                            }
+
+                            // Comprobar que el rol no haya cambiado.
+                            if (usuario.Rol != rolToken)
+                            {
+                                context.Fail(
+                                    "Los permisos del usuario han cambiado.");
+                                return;
+                            }
+
+                            // Aceptar únicamente los roles conocidos.
+                            if (usuario.Rol != Roles.Admin &&
+                                usuario.Rol != Roles.Odontologo &&
+                                usuario.Rol != Roles.Asistente)
+                            {
+                                context.Fail("Rol de usuario no permitido.");
+                                return;
+                            }
+
+                            if (usuario.Rol == Roles.Odontologo)
+                            {
+                                if (!usuario.IdOdontologo.HasValue)
+                                {
+                                    context.Fail(
+                                        "El usuario no tiene un odontólogo asociado.");
+                                    return;
+                                }
+
+                                bool odontologoActivo = await dbContext.Odontologos
+                                    .AsNoTracking()
+                                    .AnyAsync(
+                                        o => o.IdOdontologo ==
+                                             usuario.IdOdontologo.Value &&
+                                             o.Activo,
+                                        context.HttpContext.RequestAborted);
+
+                                if (!odontologoActivo)
+                                {
+                                    context.Fail(
+                                        "El odontólogo asociado no existe o está inactivo.");
+                                    return;
+                                }
+                            }
+                            else if (usuario.IdOdontologo.HasValue)
+                            {
+                                context.Fail(
+                                    "La asociación del usuario no corresponde a su rol.");
+                                return;
+                            }
+                        }
+                    };
                 });
 
             // Autorización
