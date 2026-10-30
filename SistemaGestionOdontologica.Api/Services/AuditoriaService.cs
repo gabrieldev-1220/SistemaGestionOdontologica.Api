@@ -34,7 +34,8 @@ namespace SistemaGestionOdontologica.Api.Services
                 throw new UnauthorizedAccessException("No se pudo identificar al usuario autenticado.");
 
             // Se evita que cualquier texto arbitrario termine almacenado como nombre de entidad.
-            if (entidad != "Paciente" && entidad != "Odontologo" && entidad != "Turno" && entidad != "Usuario")
+            if (entidad != "Paciente" && entidad != "Odontologo" && entidad != "Turno" && entidad != "Usuario" &&
+                entidad != "HistorialClinico")
             {
                 throw new ArgumentException(
                     "Entidad de auditoría no permitida.",

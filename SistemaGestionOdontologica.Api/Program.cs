@@ -220,13 +220,12 @@ namespace SistemaGestionOdontologica.Api
                     .Build();
             });
 
-            // Servicios.
+            // SECCIÓN SERVICIOS.
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
-            builder.Services.AddHttpContextAccessor();           
+            builder.Services.AddHttpContextAccessor();
 
-            //Servicios de pacientes
             builder.Services.AddScoped<IPacienteService, PacienteService>();
 
             builder.Services.AddScoped<IAuditoriaService, AuditoriaService>();
@@ -236,6 +235,8 @@ namespace SistemaGestionOdontologica.Api
             builder.Services.AddScoped<ITurnoService, TurnoService>();
 
             builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+
+            builder.Services.AddScoped<IHistorialClinicoService, HistorialClinicoService>();
 
             var app = builder.Build();
 
